@@ -67,11 +67,21 @@ public:
 	uint32_t GetRemainingSize(void) const { return this->DecodeMsgSize(this->Buffer.data() + SizeBinOffset) - this->SeekOffset; }
 	uint32_t GetBufferSize(void) const { return this->Buffer.size(); }
 	
+	size_t GetPosition(void) const
+	{
+		return this->GetSeekedBody() - this->GetBody();
+	}
+	
 	bool Seek(const size_t Offset = 0)
 	{
 		if (Offset >= this->GetBodySize()) return false;
 		
 		SeekOffset = Offset;
+	}
+	
+	bool SeekForward(const size_t Increment)
+	{
+		return this->Seek(this->GetPosition() + Increment);
 	}
 	
 	static uint32_t DecodeMsgSize(const void *Data)
