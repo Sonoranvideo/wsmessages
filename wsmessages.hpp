@@ -63,6 +63,9 @@ public:
 	uint8_t *GetSeekedBody(void) { return this->Buffer.data() + BodyOffset + this->SeekOffset; }
 	const uint8_t *GetSeekedBody(void) const { return this->Buffer.data() + BodyOffset + this->SeekOffset; }
 	
+	uint8_t *GetSeekedRawData(void) { return this->Buffer.data() + this->SeekOffset; }
+	const uint8_t *GetSeekedRawData(void) const { return this->Buffer.data() + this->SeekOffset; }
+	
 	uint32_t GetBodySize(void) const { return this->DecodeMsgSize(this->Buffer.data() + SizeBinOffset); }
 	uint32_t GetRemainingSize(void) const { return this->DecodeMsgSize(this->Buffer.data() + SizeBinOffset) - this->SeekOffset; }
 	uint32_t GetBufferSize(void) const { return this->Buffer.size(); }
@@ -81,9 +84,19 @@ public:
 		return true;
 	}
 	
+	void RawSeekForward(const size_t Increment)
+	{
+		this->RawSeek(this->SeekOffset + Increment);
+	}
+	
 	bool SeekForward(const size_t Increment)
 	{
-		return this->Seek(this->GetPosition() + Increment);
+		return this->Seek(this->SeekOffset + Increment);
+	}
+	
+	void RawSeek(const size_t Offset = 0)
+	{
+		SeekOffset = Offset;
 	}
 	
 	static uint32_t DecodeMsgSize(const void *Data)
