@@ -69,7 +69,7 @@ public:
 	
 	size_t GetPosition(void) const
 	{
-		return this->GetSeekedBody() - this->GetBody();
+		return this->SeekOffset;
 	}
 	
 	bool Seek(const size_t Offset = 0)
@@ -77,6 +77,8 @@ public:
 		if (Offset >= this->GetBodySize()) return false;
 		
 		SeekOffset = Offset;
+		
+		return true;
 	}
 	
 	bool SeekForward(const size_t Increment)
