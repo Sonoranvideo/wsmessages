@@ -1,15 +1,17 @@
 #ifndef __SVS_WSMESSAGES_H__
 #define __SVS_WSMESSAGES_H__
 
+#ifndef WIN32
+#include <arpa/inet.h>
+#else
+#include <winsock2.h>
+#endif //WIN32
+
 #include <stdint.h>
 #include <vector>
 #include <string.h>
 
-#ifndef WIN32
-#include <arpa/inet.h>
-#else
-#include <winsock.h>
-#endif //WIN32
+
 
 #include <libwebsockets.h>
 
