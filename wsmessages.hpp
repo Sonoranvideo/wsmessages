@@ -11,19 +11,23 @@
 #include <vector>
 #include <string.h>
 
-
-
-#include <libwebsockets.h>
+#ifdef LWS_SEND_BUFFER_PRE_PADDING
 
 #define WSMSGS_LWSBUF_START LWS_SEND_BUFFER_PRE_PADDING
 #define WSMSGS_LWSBUF_END LWS_SEND_BUFFER_POST_PADDING
 #define WSMSGS_LWSBUF_TOTAL (WSMSGS_LWSBUF_START + WSMSGS_LWSBUF_END)
+#else
+#define WSMSGS_LWSBUF_START 0
+#define WSMSGS_LWSBUF_END 0
+#define WSMSGS_LWSBUF_TOTAL 0
+
+#endif //LWS_SEND_BUFFER_PRE_PADDING
 
 class WSMessage
 {
 private:
-	static constexpr size_t PreBodySize = LWS_SEND_BUFFER_PRE_PADDING + sizeof(uint32_t);
-	static constexpr size_t PostBodySize = LWS_SEND_BUFFER_POST_PADDING;
+	static constexpr size_t PreBodySize = WSMSGS_LWSBUF_START + sizeof(uint32_t);
+	static constexpr size_t PostBodySize = WSMSGS_LWSBUF_END;
 	static constexpr size_t BodyOffset = PreBodySize;
 	static constexpr size_t SizeBinOffset = WSMSGS_LWSBUF_TOTAL;
 	
