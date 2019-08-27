@@ -8,8 +8,9 @@
 #endif //WIN32
 
 #include <stdint.h>
-#include <vector>
 #include <string.h>
+#include <assert.h>
+#include <vector>
 
 #ifdef LWS_SEND_BUFFER_PRE_PADDING
 
@@ -144,7 +145,27 @@ public:
 
 		bool IsComplete(void) const
 		{
-			return this->Buffer.size() == this->CompletedSize + DataOffset;
+			return this->Buffer.size() >= this->CompletedSize + DataOffset;
+		}
+		
+		bool NextMessage(void)
+		{ //If the fragment contained more than one complete message.
+			const size_t Offset = this->CompletedSize + DataOffset;
+			
+			if (this->Buffer.size() <= this->CompletedSize + DataOffset)
+			{ //Only one message in this fragment.
+				return false;
+			}
+			
+			const size_t NewMsgLength = this->Buffer.size() - Offset;
+			
+			memmove(this->Buffer.data(), this->Buffer.data() + Offset, NewMsgLength);
+			
+			this->Buffer.resize(NewMsgLength);
+			
+			this->CompletedSize = WSMessage::DecodeMsgSize(this->Buffer.data());
+			
+			return true;
 		}
 		
 		WSMessage *Graduate(void) const

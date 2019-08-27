@@ -19,8 +19,9 @@ indent_mode=2
 
 [project]
 name=WSMessages
-base_path=/home/daniel/wsmessages
+base_path=/home/daniel/coyoterepos/wsmessages
 description=
+file_patterns=
 
 [long line marker]
 long_line_behaviour=1
@@ -28,9 +29,15 @@ long_line_column=72
 
 [files]
 current_page=0
-FILE_NAME_0=2072;C++;0;EUTF-8;1;1;0;%2Fhome%2Fdaniel%2Fwsmessages%2Fwsmessages.hpp;0;4
+FILE_NAME_0=4361;C++;0;EUTF-8;1;1;0;%2Fhome%2Fdaniel%2Fcoyoterepos%2Fwsmessages%2Fwsmessages.hpp;0;4
 FILE_NAME_1=0;C++;0;EUTF-8;1;1;0;%2Fhome%2Fdaniel%2Fcoyoterepos%2Fcoyote-communicator%2Fsrc%2Fcomponents%2FCoyoteFastServer%2FWebSockets.h;0;4
 FILE_NAME_2=800;C++;0;EUTF-8;1;1;0;%2Fhome%2Fdaniel%2Fcoyoterepos%2Fcoyote-communicator%2Fsrc%2Fcomponents%2FCoyoteFastServer%2FWebSockets.cpp;0;4
 
 [VTE]
-last_dir=/home/daniel/libcoyote/src
+last_dir=/home/daniel/coyoterepos/libcoyote/src
+
+[build-menu]
+C++FT_00_LB=_Compile
+C++FT_00_CM=g++ -Wall -c "%f" -DWSMESSAGES_NOLWS
+C++FT_00_WD=
+filetypes=C++;
