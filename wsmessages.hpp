@@ -168,6 +168,11 @@ public:
 			return true;
 		}
 		
+		size_t GetCompletedSize(void) const { return this->CompletedSize; }
+		size_t GetBufferSize(void) const { return this->Buffer.size(); }
+		
+		const std::vector<uint8_t> &GetBuffer(void) const { return this->Buffer; } //You CAN cast away const on this, but I'm making you do that so you know that messing with this is kinda dangerous.
+		
 		WSMessage *Graduate(void) const
 		{
 			return new WSMessage(this->Buffer.data() + DataOffset, this->CompletedSize);
