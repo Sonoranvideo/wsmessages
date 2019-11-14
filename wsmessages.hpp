@@ -68,6 +68,8 @@ public:
 		memcpy(this->Buffer.data() + BodyOffset, Body, BodyLength);
 	}
 	
+	inline WSMessage(const std::vector<uint8_t> &InBuffer) : Buffer(InBuffer), SeekOffset() {}
+	inline WSMessage(std::vector<uint8_t> &&InBuffer) : Buffer(InBuffer), SeekOffset() {}
 	
 	uint8_t *GetBody(void) { return this->Buffer.data() + BodyOffset; }
 	const uint8_t *GetBody(void) const { return this->Buffer.data() + BodyOffset; }
